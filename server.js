@@ -6,14 +6,14 @@
  * Require Statements
  *************************/
 const express = require("express")
-const env = require("dotenv").config()
+require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
-
+const errorRoute = require("./routes/errorRoute")
 /* ***********************
  View Engine and Templates
  *************************/
@@ -24,11 +24,9 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(static)// File Not Found Route - must be last route in list
-app.get("/", utilities.handleErrors(baseController.buildHome))
-app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+app.use(static)
+// Error route
+app.use("/error", errorRoute)
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
@@ -36,10 +34,15 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+// File Not Found Route - must be last route in list
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+})
+
 /* ***********************
  * Express Middleware
  *************************/
-app.use(express.urlencoded({ extended: true }))
+//app.use(express.urlencoded({ extended: true }))
 
 /* ***********************
 * Express Error Handler
@@ -48,10 +51,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  if(err.status == 404){ 
+    message = err.message
+  } else if(err.status == 500) {
+    message = err.message
+  }
+  else {
+    message = 'Oh no! There was a crash. Maybe try a different route?'
+  }
   res.render("errors/error", {
     title: err.status || 'Server Error',
-    message: err.message,
+    message,
     nav
   })
 })
