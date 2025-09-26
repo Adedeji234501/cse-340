@@ -77,5 +77,5 @@ const port = process.env.PORT
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
+  console.log(`app listening on ${port}`)
 })
