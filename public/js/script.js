@@ -1,3 +1,5 @@
+const passwordShow = document.querySelector("#passwordShow");
+
 password.addEventListener("click", function(){
     const passwordInput = document.getElementById("password");
     const type = passwordInput.getAttribute("type");

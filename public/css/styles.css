@@ -349,3 +349,18 @@ hr {
     padding: 2.5rem 0.375rem;
   }
 }
+
+form{
+  border: 1px dotted white;
+  padding: 1rem;
+}
+
+.allRequired{
+  color: white;
+  font-size: 16px;
+}
+
+.warningDetails{
+  color: red;
+  font-size: 18px;
+}
