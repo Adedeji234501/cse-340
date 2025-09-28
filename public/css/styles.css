@@ -191,8 +191,7 @@ li > a:hover {
 /*Styling Form */
 #accountForm {
   position: relative;
-  width: 610px;
-  height: 380px;
+  width: 65%;
   margin: 0 auto;
   padding: 2em;
   box-sizing: border-box;
@@ -202,7 +201,10 @@ li > a:hover {
 
 input[type="password"],
 input[type="email"],
-input[type="text"]{
+input[type="text"],
+input[type="number"],
+textarea,
+select{
   margin: 20px 0;
   width: 100%;
   padding: 10px;
@@ -212,19 +214,16 @@ input[type="text"]{
 .submitButton {
   background: white;
   color: #354b64;
-  margin: auto;
-  display: block;
-  padding: 10px;
-  width: 30%;
+  padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 20px;
   text-transform: uppercase;
   cursor: pointer;
   font-weight: 500;
-  font-size: 18px;
+  margin: 2rem;
 }
 
-label{
+label {
   color: white;
   font-size: 18px;
 }
@@ -238,8 +237,7 @@ label{
 
 #registrationForm{
   position: relative;
-  width: 610px;
-  height: 100%;
+  width: 65%;
   margin: 0 auto;
   padding: 1em;
   box-sizing: border-box;
@@ -310,7 +308,7 @@ hr {
 }
 
 #price-banner p {
-  color: #4986f7;
+  color: #000306;
 }
 
 #section-mileage {
@@ -363,4 +361,28 @@ form{
 .warningDetails{
   color: red;
   font-size: 18px;
+}
+.form-container {
+  margin: 0 auto;
+  padding: 1em;
+  box-sizing: border-box;
+  background: #354b64;
+  border-radius: 20px;
+}
+
+input:valid {
+  background-color: #dfd;
+}
+
+input:invalid {
+  background-color: #fdd;
+}
+
+.success-text {
+  color: green;
+  font-weight: bold;
+}
+
+#estimateHaggle{
+  color: black;
 }

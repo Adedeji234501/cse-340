@@ -71,6 +71,11 @@ app.use("/account", accountRoute)
 app.use("/error", errorRoute)
 
 
+app.use((req, res, next) => {
+  res.locals.messages = req.session.messages || [];
+  next();
+});
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
