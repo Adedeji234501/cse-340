@@ -79,4 +79,4 @@ async function changePassword(hashed_password, account_id){
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail};
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, changePassword};
