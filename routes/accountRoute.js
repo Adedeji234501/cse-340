@@ -25,7 +25,27 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 router.post("/register", regValidate.registationRules(), regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount))
 
 // Process the login attempt
-router.post("/login", (req, res) => {
-    res.status(200).send('login process')
-})
+router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
+
+/* *********************
+* Deliver Account View
+* *********************/
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccount));
+
+/* *******
+* Update Account View
+* *******/
+router.get("/update/:acc_id", utilities.checkLogin, utilities.handleErrors(accountController.updateAccountView))
+
+router.get("/logout", utilities.checkLogin, utilities.handleErrors(accountController.logout))
+
+/* *******
+* Update Account Credentials
+* *******/
+router.post("/update", regValidate.accountUpdateRules(), regValidate.checkAccountData, utilities.handleErrors(accountController.updateAccountDetails))
+
+/* *******
+* Update Account Password
+* *******/
+router.post("/change-password", regValidate.passwordChangeRules(), regValidate.checkPasswordData, utilities.handleErrors(accountController.changeAccountPassword))
 module.exports = router

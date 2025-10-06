@@ -18,10 +18,11 @@ const utilities = require("./utilities")
 const errorRoute = require("./routes/errorRoute")
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
-/* ***********************
+/* *****
  * Middleware
- * ************************/
+ * *****/
  app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -40,19 +41,25 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
+  res.locals.notice = req.flash('notice')
   next()
 })
+// Cookie parser middleware
+app.use(cookieParser())
 
-/* ***********************
+// Custom Middleware - Check JWT token validity
+app.use(utilities.checkJWTToken)
+
+/* *****
  View Engine and Templates
- *************************/
+* *****/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
-/* ***********************
+/* *****
  * Routes
- *************************/
+ * *****/
 app.use(static)
 // Error route
 app.use("/error", errorRoute)

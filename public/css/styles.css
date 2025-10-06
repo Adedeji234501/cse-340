@@ -189,7 +189,7 @@ li > a:hover {
 }
 
 /*Styling Form */
-#accountForm {
+#accountForm, #accountUpdateForm, #passwordChangeForm {
   position: relative;
   width: 65%;
   margin: 0 auto;
@@ -211,7 +211,7 @@ select{
   border-radius: 10px;
 }
 
-.submitButton {
+.submitButton, button {
   background: white;
   color: #354b64;
   padding: 0.5rem 1.5rem;
@@ -228,7 +228,7 @@ label {
   font-size: 18px;
 }
 
-#noAccount, .signUp{
+#noAccount, .signUp, .formSpecial {
   color: white;
   font-size: 26px;
   text-align: center;
@@ -378,7 +378,7 @@ input:invalid {
   background-color: #fdd;
 }
 
-.success-text {
+.success-text, .loggedAlert {
   color: green;
   font-weight: bold;
 }
